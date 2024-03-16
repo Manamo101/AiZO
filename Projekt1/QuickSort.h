@@ -12,10 +12,7 @@ class QuickSort{
 		static const int RIGHT_INDEX = 1;
 		static const int RANDOM_INDEX = 2;
 		static const int MIDDLE_INDEX = 0;
-		inline QuickSort(T arr[], int start, int end){
-			quickSort(arr, start, end);
-		}
-	private:
+		//Paramentr start oznacza początek rozpatywanej części tablicy, natomiast end jej koniec (włącznie)
 		inline static void quickSort(T arr[], int start, int end){
 			if (start >= end)
 				return;
@@ -24,7 +21,7 @@ class QuickSort{
 			quickSort(arr, start, p);
 			quickSort(arr, p + 1, end);
 		}
-
+	private:
 		// funkcja odpowiedzialna za poprawne ułożenie danych wg wskazań algorytmu
 		inline static int partition(T arr[], int start, int end){
 			int index = getPivot(arr, start, end);

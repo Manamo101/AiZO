@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-using namespace std;
+//using namespace std;
 
 // klasa pomocniczna do generacji tablic częściowo posortowanych
 template <typename T = int>

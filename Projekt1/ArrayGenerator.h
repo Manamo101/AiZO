@@ -26,7 +26,7 @@ class ArrayGenerator{
         inline T* partlySortedRandomArray(int n, int precentage){ // percentage - zmienna określająca procent posortowania wartości w zakresie od 0% do 100%
             if (precentage > 100) return NULL;
             T *arr = randomArray(n);
-            BubbleSort bubblesort(arr, n, (float)(n*precentage/100));
+            BubbleSort<T> bubblesort(arr, n, (float)(n*precentage/100));
             return arr;
         }
 };

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "QuickSort.h"
 #include "BubbleSort.h"
+#include "InsertionSort.h"
 #include "Timer.h"
 #include "ArrayGenerator.h"
 
@@ -8,13 +9,12 @@ using namespace std;
 
 int main()
 {
-    ArrayGenerator<int> arrayGenerator;
+    ArrayGenerator<float> arrayGenerator;
     int n = 80000;
-    //auto *arr = arrayGenerator.randomArray(n);
-    auto *arr = arrayGenerator.partlySortedRandomArray(n, 66);
-
+    auto *arr = arrayGenerator.randomArray(n);
+    //auto *arr = arrayGenerator.partlySortedRandomArray(n, 66);
     Timer timer;
-    QuickSort<int, QuickSort<>::RANDOM_INDEX> quick(arr,0,n-1);
+    QuickSort<float, QuickSort<>::MIDDLE_INDEX> quick(arr,0,n-1);
     //BubbleSort bubble(arr, n, 100);
     timer.stop();
     

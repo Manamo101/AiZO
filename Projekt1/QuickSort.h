@@ -10,23 +10,25 @@ class QuickSort{
 	public:
 		static const int LEFT_INDEX = -1;
 		static const int RIGHT_INDEX = 1;
-		static const int RANDOM_INDEX = 0;
+		static const int RANDOM_INDEX = 2;
+		static const int MIDDLE_INDEX = 0;
 		inline QuickSort(T arr[], int start, int end){
 			quickSort(arr, start, end);
 		}
+	private:
+		inline static void quickSort(T arr[], int start, int end){
+			if (start >= end)
+				return;
+		
+			int p = partition(arr, start, end);
+			quickSort(arr, start, p);
+			quickSort(arr, p + 1, end);
+		}
 
+		// funkcja odpowiedzialna za poprawne ułożenie danych wg wskazań algorytmu
 		inline static int partition(T arr[], int start, int end){
-			T pivot;
-			if (pivotIndex == LEFT_INDEX) 
-				pivot = arr[start];
-			else if (pivotIndex == RIGHT_INDEX) 
-				pivot = arr[end-1];
-			else if (pivotIndex == RANDOM_INDEX){
-				srand(time(NULL));
-				pivot = arr[(rand()%(end-start) + start)];
-			}
-			else
-				pivot = arr[start];
+			int index = getPivot(arr, start, end);
+			T pivot = arr[index];
 
 			int l = start, r = end;
 			while (true) {
@@ -45,13 +47,34 @@ class QuickSort{
 				}
 			}
 		}
-		inline static void quickSort(T arr[], int start, int end) {
-			if (start >= end)
-				return;
-		
-			int p = partition(arr, start, end);
-			quickSort(arr, start, p);
-			quickSort(arr, p + 1, end);
+		inline static int getPivot(T arr[],int start, int end){
+			// if (pivotIndex == LEFT_INDEX) 
+			// 	return start;
+			// else if (pivotIndex == RIGHT_INDEX) 
+			// 	return end-1;
+			// else if (pivotIndex == RANDOM_INDEX){
+			// 	srand(time(NULL));
+			// 	return rand() % (end - start) + start;
+			// }
+			// else if (pivotIndex == MIDDLE_INDEX){
+			// 	return (end + start) / 2;
+			// }
+			// else
+			// 	return start;
+
+			switch (pivotIndex){
+				case LEFT_INDEX:
+					return start;
+				case RIGHT_INDEX:
+					return end-1;
+				case MIDDLE_INDEX:
+					return	(start + end) / 2;
+				case RANDOM_INDEX:
+					srand(time(NULL));
+					return rand() % (end - start) + start;
+				default:
+					return start;
+			}
 		}
 };
 #endif  

@@ -17,7 +17,7 @@ class ShellSort{
                 shellVersionShellSort(arr, n);
                 break;
             case KNUTH_VERSION:
-                knuthVersionShellSort(arr, n);
+                knuthVersionShellSort(arr, n, 1);
                 break;
             default:
                 shellVersionShellSort(arr, n);
@@ -25,8 +25,12 @@ class ShellSort{
             }
         }
     private:
-        static void knuthVersionShellSort(T arr[], int n){
-            cout<<"Knuth version"<<endl;
+        static void knuthVersionShellSort(T arr[], int n, int k){
+            int gap = (3 * k - 1) / 2;
+            if (gap > ceil(n/3))
+                return;
+            knuthVersionShellSort(arr, n, k * 3);
+            InsertionSort<>::insertionSort(arr, n, gap);
         }
         static void shellVersionShellSort(T arr[], int n){
             int N = n/2;

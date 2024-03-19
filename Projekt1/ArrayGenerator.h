@@ -27,6 +27,10 @@ class ArrayGenerator{
             BubbleSort<T> bubblesort(arr, n, (float)(n*precentage/100));
             return arr;
         }
+        inline void printTable(T arr[], int n){
+            for (int i = 0; i < n; i++)
+                cout << arr[i] << " ";
+        }
 };
 
 #endif

@@ -18,7 +18,7 @@ using namespace std;
 int main()
 {
     typedef int T;
-    int n = 20000;
+    int n = 10;
 
     ArrayGenerator<T> arrayGenerator;
     // T *arr = new T[9]{7,5,9,6,7,8,10,1,11}; // length: 9
@@ -26,14 +26,16 @@ int main()
     // T *arr = arrayGenerator.partlySortedRandomArray(n, 33);
     Timer timer;
     // InsertionSort<T>::insertionSort(arr, n);
-    QuickSort<T, QuickSort<>::RIGHT_INDEX>::quickSort(arr, 0, n-1);
+    QuickSort<T, QuickSort<>::RIGHT_INDEX>::quickSortDesc(arr, 0, n-1);
 
     // ShellSort<T, ShellSort<>::SHELL_VERSION>::shellSort(arr, n);
     // HeapSort<T>::heapSort(arr, n);
     timer.stop();
-    
-    // arrayGenerator.printTable(arr, n);
+    arrayGenerator.printTable(arr, n);
     delete [] arr;
+
+
+
 
     return 0;
 }

@@ -2,6 +2,7 @@
 #include <ctime>
 #include <cstdlib>
 #include "ArrayGenerator.h"
+#include "QuickSort.h"
 
 using namespace std;
 
@@ -21,10 +22,26 @@ T* ArrayGenerator<T>::randomArray(int n){
 }
 
 template <typename T = int>
+T* ArrayGenerator<T>::randomArray(T arr[],int n, int min){
+    int minValue = arr[min];
+    srand(time(0));
+    for (int i = min + 1; i < n; i++){
+        if (typeid(T) == typeid(int)){
+            arr[i] = (T)rand()%(RAND_MAX - minValue) + minValue;
+        }
+        if (typeid(T) == typeid(float)){
+            arr[i] = (T)(rand() - 1 + rand()/(float)RAND_MAX);
+        }
+    } 
+    return arr;
+}
+
+template <typename T = int>
 T* ArrayGenerator<T>::partlySortedRandomArray(int n, int precentage){
     if (precentage > 100) return NULL;
     T *arr = randomArray(n);
-    BubbleSort<T> bubblesort(arr, n, (float)(n*precentage/100));
+    QuickSort<T, QuickSort<>::LEFT_INDEX>::quickSort(arr, 0, n -1);
+    randomArray(arr, n, n*precentage/100);
     return arr;
 }
 

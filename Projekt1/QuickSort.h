@@ -15,11 +15,15 @@ class QuickSort{
 		// szybkie sortowanie
         // argumenty: tablica do posortowania, indeks początkowy, indeks końcowy
 		static void quickSort(T arr[], int start, int end);
+		// szybkie sortowanie
+        // argumenty: tablica do posortowania, indeks początkowy, indeks końcowy
+		static void quickSortDesc(T arr[], int start, int end);
 	private:
 		// funkcja odpowiedzialna za poprawne ułożenie danych wg wskazań algorytmu
         // argumenty: tablica do posortowania, indeks początkowy, indeks końcowy
 		// zwarca: wartość indeksu służący do podzielania tablicy
 		static int partition(T arr[], int start, int end);
+		static int partitionDesc(T arr[], int start, int end);
 		
 		// funkcja zwracająca indeks pivota wg zadanego parametru
         // argumenty: tablica do posortowania, indeks początkowy, indeks końcowy

@@ -46,6 +46,13 @@ T* ArrayGenerator<T>::partlySortedRandomArray(int n, int precentage){
 }
 
 template <typename T = int>
+T* ArrayGenerator<T>::sortedArrayDesc(int n){
+    T *arr = randomArray(n);
+    QuickSort<T, QuickSort<>::LEFT_INDEX>::quickSortDesc(arr, 0, n - 1);
+    return arr;
+}
+
+template <typename T = int>
 void ArrayGenerator<T>::printTable(T arr[], int n){
     for (int i = 0; i < n; i++)
     cout << arr[i] << " ";

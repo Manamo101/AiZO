@@ -18,28 +18,31 @@ using namespace std;
 int main()
 {
     typedef int T;
-    int n = 10000;
-    int time = 0;
+    int n = 1280000;
+    float time = 0;
     int count = 50;
 
     for (int i = 0; i < count; i++){
         ArrayGenerator<T> arrayGenerator;
-        // T *arr = arrayGenerator.randomArray(n);
+        // T *arr = arrayGenerator.randomArray(n); 
         // InsertionSort<T>::insertionSort(arr, n);
+        // HeapSort<T>::heapSort(arr, n);
         // QuickSort<T, QuickSort<>::LEFT_INDEX>::quickSort(arr, 0, n - 1);
         T *arr = arrayGenerator.sortedArrayDesc(n);
-        // T *arr = arrayGenerator.partlySortedRandomArray(n, 33);
+        // T *arr = arrayGenerator.partlySortedRandomArray(n, 100);
         Timer timer;
-        InsertionSort<T>::insertionSort(arr, n);
-        // QuickSort<T, QuickSort<>::LEFT_INDEX>::quickSort(arr, 0, n - 1);
-        // ShellSort<T, ShellSort<>::KNUTH_VERSION>::shellSort(arr, n);
+        // InsertionSort<T>::insertionSort(arr, n);
+        QuickSort<T, QuickSort<>::RANDOM_INDEX>::quickSort(arr, 0, n - 1);
+        // ShellSort<T, ShellSort<>::SHELL_VERSION>::shellSort(arr, n);
         // HeapSort<T>::heapSort(arr, n);
         time += timer.stop();
+        cout<<arrayGenerator.isSorted(arr, n)<<"    ";
+        cout<<i + 1<<".     "<<time / (float)(i+1)<<endl;
         // arrayGenerator.printTable(arr, n);
         delete [] arr;
     }
-    time /= count;
-    cout<<time;
+    time /= (float)count;
+    cout<<endl<<"finish time: "<<time;
 
 
     return 0;

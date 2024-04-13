@@ -5,22 +5,95 @@ using namespace std;
 
 template <typename T = int, int pivotIndex = -1>
 void QuickSort<T, pivotIndex>::quickSort(T arr[], int start, int end){
-    if (start >= end) //sprawdzenie czy talica nie jest jednoelementowa
-        return;
+    // if (start >= end) //sprawdzenie czy talica nie jest jednoelementowa
+    //     return;
 
-    int p = partition(arr, start, end); //odpowiedznie rozmieszczenie wartości
-    quickSort(arr, start, p); // rekurencyjne wywołanie dwóch podtablic
-    quickSort(arr, p + 1, end);
+    // int p = partition(arr, start, end); //odpowiedznie rozmieszczenie wartości
+    // if (p <= start + (end - start) / 2 ){
+    //     quickSort(arr, start, p); // rekurencyjne wywołanie dwóch podtablic
+    //     quickSort(arr, p + 1, end);
+    // }
+    // else {
+    //     quickSort(arr, p + 1, end);    
+    //     quickSort(arr, start, p); // rekurencyjne wywołanie dwóch podtablic
+    // }
+
+    int *stack = new int[end - start + 1]; 
+  
+    // initialize top of stack 
+    int top = -1; 
+  
+    // push initial values of l and h to stack 
+    stack[++top] = start; 
+    stack[++top] = end; 
+  
+    // Keep popping from stack while is not empty 
+    while (top >= 0) { 
+        // Pop h and l 
+        end = stack[top--]; 
+        start = stack[top--]; 
+
+        int p = partition(arr, start, end); //odpowiedznie rozmieszczenie wartości
+
+        if (p > start) { 
+            stack[++top] = start; 
+            stack[++top] = p; 
+        } 
+  
+        // If there are elements on right side of pivot, 
+        // then push right side to stack 
+        if (p + 1 < end) { 
+            stack[++top] = p + 1; 
+            stack[++top] = end; 
+        } 
+    }
 }
 
 template <typename T = int, int pivotIndex = -1>
 void QuickSort<T, pivotIndex>::quickSortDesc(T arr[], int start, int end){
-    if (start >= end) //sprawdzenie czy talica nie jest jednoelementowa
-        return;
+    // if (start >= end) //sprawdzenie czy talica nie jest jednoelementowa
+    //     return;
 
-    int p = partitionDesc(arr, start, end); //odpowiedznie rozmieszczenie wartości
-    quickSortDesc(arr, start, p); // rekurencyjne wywołanie dwóch podtablic
-    quickSortDesc(arr, p + 1, end);
+    // int p = partitionDesc(arr, start, end); //odpowiedznie rozmieszczenie wartości
+    // if (p <= start + (end - start) / 2 ){
+    // quickSortDesc(arr, start, p); // rekurencyjne wywołanie dwóch podtablic
+    // quickSortDesc(arr, p + 1, end);
+    // }
+    // else {
+    // quickSortDesc(arr, p + 1, end);    
+    // quickSortDesc(arr, start, p); // rekurencyjne wywołanie dwóch podtablic
+    // }
+
+    int *stack = new int[end - start + 1]; 
+  
+    // initialize top of stack 
+    int top = -1; 
+  
+    // push initial values of l and h to stack 
+    stack[++top] = start; 
+    stack[++top] = end; 
+  
+    // Keep popping from stack while is not empty 
+    while (top >= 0) { 
+        // Pop h and l 
+        end = stack[top--]; 
+        start = stack[top--]; 
+
+        int p = partitionDesc(arr, start, end); //odpowiedznie rozmieszczenie wartości
+
+        if (p > start) { 
+            stack[++top] = start; 
+            stack[++top] = p; 
+        } 
+  
+        // If there are elements on right side of pivot, 
+        // then push right side to stack 
+        if (p + 1 < end) { 
+            stack[++top] = p + 1; 
+            stack[++top] = end; 
+        } 
+    }
+    delete [] stack;
 }
 
 template <typename T = int, int pivotIndex = -1>

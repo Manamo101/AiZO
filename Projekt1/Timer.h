@@ -12,6 +12,6 @@ private:
 public:
     //funkcja kończąca mierzenie czasu
     //zwraca: czas wykonania
-    int stop();
+    float stop();
 };
 #endif TIMER_H

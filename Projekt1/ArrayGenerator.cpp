@@ -27,10 +27,10 @@ T* ArrayGenerator<T>::randomArray(T arr[],int n, int min){
     srand(time(0));
     for (int i = min + 1; i < n; i++){
         if (typeid(T) == typeid(int)){
-            arr[i] = (T)rand()%(RAND_MAX - minValue) + minValue;
+            arr[i] = (T)(rand()%(RAND_MAX - minValue) + minValue);
         }
         if (typeid(T) == typeid(float)){
-            arr[i] = (T)(rand() - 1 + rand()/(float)RAND_MAX);
+            arr[i] = (T)((rand() - 1)%(RAND_MAX - minValue) + minValue + rand()/(float)RAND_MAX);
         }
     } 
     return arr;
@@ -56,4 +56,13 @@ template <typename T = int>
 void ArrayGenerator<T>::printTable(T arr[], int n){
     for (int i = 0; i < n; i++)
     cout << arr[i] << " ";
+}
+
+template <typename T = int>
+bool ArrayGenerator<T>::isSorted(T arr[], int n){
+    for (int i = 0; i < n - 1; i++){
+        if (arr[i] > arr[i + 1])
+            return false;
+    }
+    return true;
 }

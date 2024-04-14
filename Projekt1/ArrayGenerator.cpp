@@ -7,15 +7,15 @@
 using namespace std;
 
 template <typename T = int>
-T* ArrayGenerator<T>::randomArray(int n){
+T* ArrayGenerator<T>::randomArray(int n, int max){
     T *arr = new T[n];
     srand(time(0));
     for (int i = 0; i < n; i++){
         if (typeid(T) == typeid(int)){
-            arr[i] = (T)rand();
+            arr[i] = rand() % max;
         }
         if (typeid(T) == typeid(float)){
-            arr[i] = (T)(rand() - 1 + rand()/(float)RAND_MAX);
+            arr[i] = (rand() % max - 1 + rand() / (float)RAND_MAX);
         }
     } 
     return arr;
@@ -37,6 +37,16 @@ T* ArrayGenerator<T>::randomArray(T arr[],int n, int min){
 }
 
 template <typename T = int>
+T* ArrayGenerator<T>::hardCopy(T arr[], int n){
+    T* newAray = new T[n];
+    for (int i = 0; i < n; i++) {
+        newAray[i] = arr[i];
+    }
+    return newAray;
+}
+
+
+template <typename T = int>
 T* ArrayGenerator<T>::partlySortedRandomArray(int n, int precentage){
     if (precentage > 100) return NULL;
     T *arr = randomArray(n);
@@ -50,12 +60,6 @@ T* ArrayGenerator<T>::sortedArrayDesc(int n){
     T *arr = randomArray(n);
     QuickSort<T, QuickSort<>::LEFT_INDEX>::quickSortDesc(arr, 0, n - 1);
     return arr;
-}
-
-template <typename T = int>
-void ArrayGenerator<T>::printTable(T arr[], int n){
-    for (int i = 0; i < n; i++)
-    cout << arr[i] << " ";
 }
 
 template <typename T = int>

@@ -1,8 +1,6 @@
 .vscode
 cwmat_10_sort.pptx
-Projekt1/vc140.pdb
-Projekt1/sortowania.pdb
-Projekt1/sortowania.obj
-Projekt1/sortowania.ilk
-Projekt1/QuickSort.obj
-cwmat_10_sort.zip
+*.pdb
+*.obj
+*.ilk
+*.zip

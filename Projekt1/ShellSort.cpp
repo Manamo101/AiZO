@@ -22,14 +22,14 @@ void ShellSort<T, version>::knuthVersionShellSort(T arr[], int n, int k){
     if (gap > ceil(n/3)) // warunek skończenia zwiększania wartości
         return;
     knuthVersionShellSort(arr, n, k * 3); // rekurencyjne wywołanie następnej funcji o większym skoku
-    InsertionSort<>::insertionSort(arr, n, gap); // posortowanie wartości przez wstawianie
+    InsertionSort<T>::insertionSort(arr, n, gap); // posortowanie wartości przez wstawianie
 }
 
 template<typename T = int, int version = 1> 
 void ShellSort<T, version>::shellVersionShellSort(T arr[], int n){
     int N = n/2; // obliczenie wartości skoku
     while (N > 0){ // iteracyjne sortowanie
-        InsertionSort<>::insertionSort(arr, n, N); // posortowanie wartości przez wstawianie
+        InsertionSort<T>::insertionSort(arr, n, N); // posortowanie wartości przez wstawianie
         N/=2; // zmniejszenie wartości skoku
     }
 }

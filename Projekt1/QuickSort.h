@@ -1,7 +1,7 @@
 #ifndef QUICKSORT_H 
 #define QUICKSORT_H 
 
-// klasa posiadająca funkcje zawierające algorytmy szybkiego sortowania
+// klasa posiadająca funkcje zawierające algorytmy sortowania szybkiego
 // paramentry: typ danych, miejsce pivota (domyślnie integer oraz lewy)
 template <typename T = int, int pivotIndex = -1>
 class QuickSort{
@@ -12,10 +12,10 @@ class QuickSort{
 		static const int RANDOM_INDEX = 2;
 		static const int MIDDLE_INDEX = 0;
 
-		// szybkie sortowanie
+		// sortowanie szybkie rosnąco
         // argumenty: tablica do posortowania, indeks początkowy, indeks końcowy
 		static void quickSort(T arr[], int start, int end);
-		// szybkie sortowanie
+		// sortowanie szybkie malejąco
         // argumenty: tablica do posortowania, indeks początkowy, indeks końcowy
 		static void quickSortDesc(T arr[], int start, int end);
 	private:

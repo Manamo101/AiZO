@@ -7,11 +7,11 @@ template <typename T = int>
 class InsertionSort{
     public:
     // sortowanie przez wstawianie
-    // parametry: tablica do posortowania, długość tablicy
+    // arugmenty: tablica do posortowania, długość tablicy
     static void insertionSort(T arr[], int n);
 
     // sortowanie przez wstawianie przystosowane do wykorzystania dla algorytmu Shella
-    // parametry: tablica do posortowania, długość tablicy, szerokość luk
+    // argumenty: tablica do posortowania, długość tablicy, szerokość luk
     static void insertionSort(T arr[], int n, int gap);
 };
 #endif

@@ -12,7 +12,6 @@
 #include "ArrayGenerator.cpp"
 #include "HeapSort.h"
 #include "HeapSort.cpp"
-#include "BubbleSort.h"
 #include "CLIManager.h"
 #include "CLIManager.cpp"
 #include "FileManagment.h"
@@ -53,9 +52,8 @@ int main() {
     do {
         CLIManager::printMenu();
         selected = getch();
-        // cout << selected << endl;
         char tableType;
-        int time;
+        float time;
         switch(selected) {
             case '1':
                 char sign;

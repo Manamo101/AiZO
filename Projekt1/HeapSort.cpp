@@ -1,6 +1,5 @@
 #include "HeapSort.h"
 
-// using namespace std;
 
 template <typename T = int>
 void HeapSort<T>::heapSort(T arr[], int n) {

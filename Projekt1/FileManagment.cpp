@@ -5,20 +5,20 @@
 using namespace std;
 
 int FileManagment::getArraySize(string filename){
-    ifstream file(filename);
-    int size;
-    file >> size;
-    file.close();
-    return size;
+    ifstream file(filename); // inicjalizacja zmiennej służącej do połączenia się z plikiem
+    int size; // utworzenie zmiennej przechowującej rozmiar tablicy
+    file >> size; // pobranie rozmiaru tablicy
+    file.close(); // zamknięcie strumienia
+    return size; // zwrócenie żądanej wartości
 }
 int* FileManagment::getArray(string filename) {
-    ifstream file(filename);
-    int size;
-    file >> size;
-    int *arr = new int[size];
+    ifstream file(filename); // inicjalizacja zmiennej służącej do połączenia się z plikiem
+    int size; // utworzenie zmiennej przechowującej rozmiar tablicy
+    file >> size; // pobranie rozmiaru tablicy
+    int *arr = new int[size]; // inicjalizacja tablicy
     for (int i = 0; i < size; i++) {
-        file >> arr[i];
+        file >> arr[i]; //przypisanie tablicy wartości z pliku
     }
-    file.close();
-    return arr;
+    file.close(); // zamknięcie strumienia
+    return arr; // zwrócenie tablicy
 }

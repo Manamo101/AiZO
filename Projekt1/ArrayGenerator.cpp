@@ -40,7 +40,7 @@ template <typename T = int>
 T* ArrayGenerator<T>::hardCopy(T arr[], int n){
     T* newAray = new T[n]; // utworzenie tablicy
     for (int i = 0; i < n; i++) {
-        newAray[i] = arr[i]; // przypisanie wartości z jednej do drugiej
+        newAray[i] = arr[i]; // skopiowanie wartości z jednej do drugiej
     }
     return newAray;
 }

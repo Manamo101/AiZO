@@ -20,19 +20,21 @@
 using namespace std;
 
 int main() {
+    // inicjalizaja zmiennych
     int fileArraySize, randomArraySize;
     int* fileArray, *randomIntArray;
     float *randomFloatArray;
     int maxRangeRandom;
     string filename, type;
 
+    // pobranie argumentów
     filename = CLIManager::getFilename();
     fileArraySize = FileManagment::getArraySize(filename);
     fileArray = FileManagment::getArray(filename);
-    ArrayGenerator<> gen;
     type = CLIManager::getType();
     maxRangeRandom = CLIManager::getRangeRandom();
     
+    // wstępne stworzenie losowej tablicy
     randomArraySize = 10;
     if (type == "float") {
         ArrayGenerator<float> generator;
@@ -45,10 +47,12 @@ int main() {
     cout << "\nzainicjalizowano wstepnie losowa tablice o rozmiarze " << randomArraySize << endl;
     
 
-    
+    // zmienne pomocnicze do twardych kopii
     float *copyf;
     int *copyi;
     char selected;
+
+    // pętla menu
     do {
         CLIManager::printMenu();
         selected = getch();

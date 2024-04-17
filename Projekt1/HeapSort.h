@@ -10,7 +10,7 @@ class HeapSort{
         // argumenty: tablica do posortowania, długość tablicy
         static void heapSort(T arr[], int n);
     private:
-        //naprawa kopca
+        //naprawa kopca w górę
         // argumenty: tablica do posortowania, długość tablicy, indeks rodzica
         static void fixHeap(T arr[], int n, int parent);
         // stworzenie kopca

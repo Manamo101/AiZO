@@ -15,7 +15,7 @@ void InsertionSort<T>::insertionSort(T arr[], int n){
 template <typename T = int>
 void InsertionSort<T>::insertionSort(T arr[], int n, int gap){
     for (int i = 0; i < n && i < gap; i++){ // przejscie po tablicy o szerokości skoku
-        for (int j = i; j < n; j+=gap){ // pętla idąca co n-tą watość skoku
+        for (int j = i; j < n; j+=gap){ // pętla idąca co n-tą wartość skoku
             T value = arr[j]; // zmienna z aktualną wartością
             int k; // zmienna pomocnicza pętli
             for (k = j; k-gap >= 0 && arr[k-gap] > value; k-=gap){ // przesuwanie wartości z uwzględnieniem skoku

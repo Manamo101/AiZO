@@ -60,7 +60,7 @@ void QuickSort<T, pivotIndex>::quickSortDesc(T arr[], int start, int end){
         start = stack[top--]; 
 
         // odpowiedznie rozmieszczenie wartości
-        int p = partition(arr, start, end); 
+        int p = partitionDesc(arr, start, end); 
 
         // odłożenie na stos lewej części podtablicy
         if (p > start) { 

@@ -16,6 +16,7 @@ T* ArrayGenerator<T>::randomArray(int n, int max){
         }
         if (typeid(T) == typeid(float)){
             arr[i] = (rand() % max - 1 + rand() / (float)RAND_MAX);
+            if (arr[i] < 0) arr[i]++;
         }
     } 
     return arr;
@@ -31,6 +32,7 @@ T* ArrayGenerator<T>::randomArray(T arr[],int n, int min){
         }
         if (typeid(T) == typeid(float)){
             arr[i] = (T)((rand() - 1)%(RAND_MAX - minValue) + minValue + rand()/(float)RAND_MAX);
+            if (arr[i] < 0) arr[i]++;
         }
     } 
     return arr;

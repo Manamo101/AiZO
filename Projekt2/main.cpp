@@ -9,22 +9,23 @@ using namespace std;
 
 int main(){
     // przykład macierzy incydencji oraz listy sąsiedztwa z przykładu grafu na ćwiczeniach
-    int incidence_matrix[5][7] = {
-            {1,0,0,0,0,1,0},
-            {1,1,0,0,0,0,1},
-            {0,0,0,1,1,1,1},
-            {0,1,1,0,1,0,0},
-            {0,0,1,1,0,0,0},
+    int **incidence_matrix = new int*[5]{
+            new int[7]{1,0,0,0,0,3,0},
+            new int[7]{1,6,0,0,0,0,3},
+            new int[7]{0,0,0,2,4,3,3},
+            new int[7]{0,6,5,0,4,0,0},
+            new int[7]{0,0,5,2,0,0,0},
         };
-    Graph_list graph, graph1;
-    graph.w = 10;
-    graph1.w = 5;
-    graph.next = &graph1;
 
     int vertices = 5;
-    int **matrix = Generate_graph::complete_incidence_matrix(vertices);
+    Generate_graph::graph_type type = Generate_graph::graph_type::undirected;
+    // int **matrix = incidence_matrix;
 
+    int **matrix = Generate_graph::complete_incidence_matrix(vertices, type);
+    Graph_list **list = Generate_graph::complete_adjacency_list(vertices, matrix, type);
+    
     Printer::print_matrix_graph(matrix, vertices);
+    Printer::print_list_graph(list, vertices);
 
     return 0;
 }

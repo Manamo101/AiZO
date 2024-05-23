@@ -1,6 +1,3 @@
-#ifndef PRINTER_H
-#define PRINTER_H
-
 #include <iostream>
 #include <stdio.h>
 #include <iomanip>
@@ -22,6 +19,18 @@ void Printer::print_matrix_graph(int **matrix, int vertices){
         }
         cout << endl;
     }
+    cout << endl << endl;
 }
 
-#endif
+void Printer::print_list_graph(Graph_list **list, int vertices){
+    cout << "Lista sasiedztwa" << endl;
+    for(int i = 0; i < vertices; i++){
+    cout << "v [" << i << "] =";
+    Graph_list *l =  list[i];
+    while(l){
+      cout << setw (3) << l->v << ":" << l->w;
+      l = l->next;
+    }
+    cout << endl;
+  }
+}

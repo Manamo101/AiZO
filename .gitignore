@@ -1,9 +1,8 @@
 .vscode
-cwmat_10_sort.pptx
+/prezentacje
+*.txt
 *.pdb
 *.obj
 *.ilk
 *.zip
-Projekt1/*.txt
-cwmat*
 *.rar

@@ -11,7 +11,8 @@ class Generate_graph {
         };
 
         static int** complete_incidence_matrix(int vertices, graph_type type);
-        static Graph_list** complete_adjacency_list(int vertices, int **matrix, graph_type type);
+        static Graph_list** parse_to_adjacency_list(int vertices, int edges, int **matrix, graph_type type);
+        static int** densify_incidence_matrix(int vertices, int** mst, int density, graph_type type);
 
 };
 #endif

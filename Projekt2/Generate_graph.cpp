@@ -2,6 +2,7 @@
 #include <random>
 #include <ctime>
 #include <limits.h>
+#include "MST.h"
 #include "Generate_graph.h"
 
 using namespace std;
@@ -37,6 +38,12 @@ Graph_list** Generate_graph::parse_to_adjacency_list(int vertices, int edges, in
                 l->v = index_b;
                 l->next = list[index_a];
                 list[index_a] = l;
+
+                l = new Graph_list();
+                l->w = b;
+                l->v = index_a;
+                l->next = list[index_b];
+                list[index_b] = l;
             }
         }
         else {
@@ -106,9 +113,9 @@ int** Generate_graph::complete_incidence_matrix(int vertices, graph_type type){
     return matrix;
 }
 
-int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int density,graph_type type) {
-    int edges = (vertices * (vertices - 1) / 2);
-    edges *= density/(float)100;
+int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edges, graph_type type) {
+    // int edges = (vertices * (vertices - 1) / 2);
+    // edges *= density/(float)100;
     int** matrix = new int*[vertices];
     for (int i = 0; i < vertices; ++i)
         matrix[i] = new int[edges];
@@ -132,8 +139,7 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int dens
                 v2 = rand() % vertices;
             while (v1 == v2);
         }
-        while (matrix[v1][edge_counter] != 0 && matrix[v2][edge_counter] != 0);
-        cout << v1 << "\t" << v2 << endl;
+        while (!is_cycle(mst, vertices, edges, v1, v2));
         w = (rand() % (INT_MAX - 1) + 1); // losowanie wagi
         if (type == Generate_graph::graph_type::undirected){
             matrix[v1][edge_counter] = w;
@@ -144,10 +150,35 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int dens
             matrix[v1][edge_counter] = w;
             matrix[v2][edge_counter] = -w;
         }
-        else
-            cout << "chuj \n";
         ++edge_counter;
     }
+
+    return matrix;
+}
+
+bool Generate_graph::is_cycle(int** graph, int vertices, int edges, int v1, int v2) {
+    for (int i = 0; i < vertices; ++i) {
+        if (graph[v1][i] != 0 && graph[v2][i] != 0)
+            return true;
+    }
+    return false;
+}
+
+int** Generate_graph::create_graph_incidence_matrix(int vertices, int edges, graph_type type){
+    int** graph = Generate_graph::complete_incidence_matrix(vertices, type);
+    int edges_full = vertices * (vertices - 1) / 2;
+    if (edges == edges_full)
+        return graph;
+    MST mst;
+    int** mstm = mst.Prim_Matrix(graph, edges_full, vertices, type, MST::print::no);
+    int** matrix = Generate_graph::densify_incidence_matrix(vertices, mstm, edges, type);
+
+    for (int i = 0; i < vertices; i++) {
+        delete [] graph[i];
+        delete [] mstm[i];
+    }
+    delete [] graph;
+    delete [] mstm;
 
     return matrix;
 }

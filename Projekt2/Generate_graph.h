@@ -13,6 +13,8 @@ class Generate_graph {
         static int** complete_incidence_matrix(int vertices, graph_type type);
         static Graph_list** parse_to_adjacency_list(int vertices, int edges, int **matrix, graph_type type);
         static int** densify_incidence_matrix(int vertices, int** mst, int density, graph_type type);
+        static bool is_cycle(int** graph, int vertices, int edges, int v1, int v2);
+        static int** create_graph_incidence_matrix(int vertices, int edges, graph_type type);
 
 };
 #endif

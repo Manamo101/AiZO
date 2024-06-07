@@ -5,8 +5,12 @@
 
 class MST {
     public:
-        int** Prim_Matrix(int ** graph, int e, int v, Generate_graph::graph_type type);
-        Graph_list** Prim_List(Graph_list** graph, int e, int v);
+        enum print {
+            yes,
+            no
+        };
+        int** Prim_Matrix(int ** graph, int e, int v, Generate_graph::graph_type type, print p);
+        Graph_list** Prim_List(Graph_list** graph, int e, int v, print p);
 };
 
 #endif

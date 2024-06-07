@@ -26,7 +26,7 @@ bool compare_vector(Prim* a, Prim* b){
             return (*a).key > (*b).key;
         }
 
-int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::graph_type type){
+int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::graph_type type, print prt){
     /*
     priority_queue<Prim, vector<Prim>, Compare> queue;
     priority_queue<Prim, vector<Prim>, Compare> tmp;
@@ -124,10 +124,6 @@ int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::gr
         cout << "total = " << total << endl;
     return mst;
     */
-//    priority_queue<Prim*, vector<Prim*>, Compare_ptr> queue;
-    // priority_queue<Prim*, vector<Prim*>, Compare_ptr> tmp;
-    // priority_queue<Prim, vector<Prim>, Compare> tmp2;
-    vector<Prim*> queue;
 
 
     int ** mst = new int*[vertices];
@@ -138,10 +134,12 @@ int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::gr
         }
     }
 
+    Timer timer;
+
+    vector<Prim*> queue;
     int* key = new int[vertices];
     int* p = new int[vertices];
     Prim* prims = new Prim[vertices];
-    Timer timer;
     for (int i = 0; i < vertices; ++i) {
         prims[i].v = i;
         key[i] = INT_MAX;
@@ -175,7 +173,8 @@ int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::gr
         }
     }
     float time = timer.stop();
-    std::cout << "mst Prim matrix time = " << time << endl;
+    if (prt == MST::print::yes)
+        std::cout << "mst Prim matrix time = " << time << endl;
 
     int edge = 0;
     int total = 0;
@@ -192,20 +191,19 @@ int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::gr
         }
         ++edge;
     }
-    if (type == Generate_graph::graph_type::undirected)
+    if (type == Generate_graph::graph_type::undirected && prt == MST::print::yes)
         std::cout << "total = " << total << endl;
     return mst;
 }
 
-Graph_list** MST::Prim_List(Graph_list** graph, int edges, int vertices){
+Graph_list** MST::Prim_List(Graph_list** graph, int edges, int vertices, print prt){
 
 
-    vector<Prim*> queue;
-
-    Graph_list **list = new Graph_list* [vertices];
 
     Timer timer;
 
+    vector<Prim*> queue;
+    Graph_list **list = new Graph_list* [vertices];
     int* key = new int[vertices];
     int* p = new int[vertices];
     Prim* prims = new Prim[vertices];
@@ -244,7 +242,6 @@ Graph_list** MST::Prim_List(Graph_list** graph, int edges, int vertices){
     }
 
     float time = timer.stop();
-    std::cout << "mst Prim list time = " << time << endl;
 
     Graph_list **mst = new Graph_list* [vertices];
     for (int i = 0; i < vertices; ++i)
@@ -266,6 +263,9 @@ Graph_list** MST::Prim_List(Graph_list** graph, int edges, int vertices){
 
         total += key[i];
     }
-    std::cout << "total = " << total << endl;
+    if (prt == MST::print::yes){
+        std::cout << "mst Prim list time = " << time << endl;
+        std::cout << "total = " << total << endl;
+    }
     return mst;
 }

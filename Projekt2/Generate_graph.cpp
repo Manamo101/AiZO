@@ -117,9 +117,10 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edge
     // int edges = (vertices * (vertices - 1) / 2);
     // edges *= density/(float)100;
     int** matrix = new int*[vertices];
-    for (int i = 0; i < vertices; ++i)
-        matrix[i] = new int[edges];
+    // for (int i = 0; i < vertices; ++i)
+    //     matrix[i] = new int[edges];
     for (int i = 0; i < vertices; ++i) {
+        matrix[i] = new int[edges];
         for (int j = 0; j < edges; ++j) {
             if (j < vertices - 1) {
                 matrix[i][j] = mst[i][j];
@@ -129,6 +130,7 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edge
             }
         }
     }
+    // return matrix;
     srand(time(NULL));
     int edge_counter = vertices - 1;
     int v1, v2, w;
@@ -139,14 +141,14 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edge
                 v2 = rand() % vertices;
             while (v1 == v2);
         }
-        while (!is_cycle(mst, vertices, edges, v1, v2));
+        while (is_cycle(matrix, vertices, edges, v1, v2));
         w = (rand() % (INT_MAX - 1) + 1); // losowanie wagi
         if (type == Generate_graph::graph_type::undirected){
             matrix[v1][edge_counter] = w;
             matrix[v2][edge_counter] = w;
         }
         else if (type == Generate_graph::graph_type::directed) {
-            w = rand() % 2 == 0 ? w : -w; // losowanie kierunku
+            w = rand() % 2 ? w : -w; // losowanie kierunku
             matrix[v1][edge_counter] = w;
             matrix[v2][edge_counter] = -w;
         }
@@ -157,7 +159,7 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edge
 }
 
 bool Generate_graph::is_cycle(int** graph, int vertices, int edges, int v1, int v2) {
-    for (int i = 0; i < vertices; ++i) {
+    for (int i = 0; i < edges; ++i) {
         if (graph[v1][i] != 0 && graph[v2][i] != 0)
             return true;
     }
@@ -182,3 +184,7 @@ int** Generate_graph::create_graph_incidence_matrix(int vertices, int edges, gra
 
     return matrix;
 }
+
+// Graph_list** Generate_graph::create_graph_adjacentcy_list(int vertices, int** matrix, graph_type type){
+    // Graph_list** graph = Ge
+// }

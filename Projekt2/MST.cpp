@@ -11,7 +11,7 @@ using namespace std;
 
 struct Prim{
     int v = -1;
-    int key = INT_MAX - 3;
+    int key = INT_MAX;
     bool used = false;
 };
 
@@ -159,7 +159,18 @@ int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::gr
         int u = (*vertex).v;
 
         for (int e = 0; e < edges; ++e) {
-            if (graph[u][e] != 0) {
+            if (graph[u][e] > 0 && type == Generate_graph::graph_type::undirected) {
+                for (int v = 0; v < vertices; ++v) {
+                    if (graph[v][e] && v != u) {
+                        if (prims[v].used == false && graph[v][e] < key[v]) {
+                            prims[v].key = graph[v][e];
+                            key[v] = graph[v][e];
+                            p[v] = u;
+                        }
+                    }
+                }
+            }
+            else if (graph[u][e] != 0 && type == Generate_graph::graph_type::directed) {
                 for (int v = 0; v < vertices; ++v) {
                     if (graph[v][e] && v != u) {
                         if (prims[v].used == false && graph[v][e] < key[v]) {
@@ -194,16 +205,16 @@ int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::gr
         std::cout << "total = " << total << endl;
 
     delete [] prims;
-    queue.clear();
-    delete &queue;
+    delete [] key;
+    delete [] p;
+
+    // queue.clear();
+    // delete &queue;
 
     return mst;
 }
 
 Graph_list** MST::Prim_List(Graph_list** graph, int edges, int vertices, print prt){
-
-
-
     Timer timer;
 
     vector<Prim*> queue;
@@ -271,9 +282,18 @@ Graph_list** MST::Prim_List(Graph_list** graph, int edges, int vertices, print p
         std::cout << "total = " << total << endl;
     }
 
-    delete [] prims;
-    queue.clear();
-    delete &queue;
+    // delete [] prims;
+    // queue.clear();
+    // delete &queue;
 
     return mst;
+}
+int** MST::Kruskal_Matrix(int ** graph, int e, int v, Generate_graph::graph_type type, print p) {
+    
+
+
+
+
+    
+    return NULL;
 }

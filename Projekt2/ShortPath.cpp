@@ -187,19 +187,20 @@ void ShortPath::BF_Matrix(int ** graph, int edges, int vertices, int start, int 
         }
     }
     float time = timer.stop();
-    cout << "BF matrix time = " << time << " ms" << endl;
+    cout << time << endl;
+    // cout << "BF matrix time = " << time << " ms" << endl;
 
     // cout << "from 0 to whatever you want\n";
     // for (int i = 0; i < vertices; ++i){
     //     cout << "to " << i << " from " << p[i] << " length " << d[i] << endl;
     // }
-    int pre = p[stop];
-    cout << stop;
-    while (pre != -1) {
-        cout << " <- " << pre;
-        pre = p[pre];
-    }
-    cout << endl << "total cost = " << d[stop] << endl;
+    // int pre = p[stop];
+    // cout << stop;
+    // while (pre != -1) {
+    //     cout << " <- " << pre;
+    //     pre = p[pre];
+    // }
+    // cout << endl << "total cost = " << d[stop] << endl;
 
     delete [] d;
     delete [] p;
@@ -250,19 +251,21 @@ void ShortPath::BF_List(Graph_list** graph, int edges, int vertices, int start, 
         }
     }
     float time = timer.stop();
-    cout << "BF list time = " << time << " ms" << endl;
+
+    cout << time << endl;
+    // cout << "BF list time = " << time << " ms" << endl;
 
     // cout << "from 0 to whatever you want\n";
     // for (int i = 0; i < vertices; ++i){
     //     cout << "to " << i << " from " << p[i] << " length " << d[i] << endl;
     // }
-    int pre = p[stop];
-    cout << stop;
-    while (pre != -1) {
-        cout << " <- " << pre;
-        pre = p[pre];
-    }
-    cout << endl << "total cost = " << d[stop] << endl;
+    // int pre = p[stop];
+    // cout << stop;
+    // while (pre != -1) {
+    //     cout << " <- " << pre;
+    //     pre = p[pre];
+    // }
+    // cout << endl << "total cost = " << d[stop] << endl;
 
     delete [] d;
     delete [] p;

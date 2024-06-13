@@ -135,13 +135,13 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edge
     int edge_counter = vertices - 1;
     int v1, v2, w;
     while (edge_counter != edges) {
-        do {
+        // do {
             v1 = rand() % vertices;
             do
                 v2 = rand() % vertices;
             while (v1 == v2);
-        }
-        while (is_cycle(matrix, vertices, edges, v1, v2));
+        // }
+        // while (is_cycle(matrix, vertices, edges, v1, v2));
         w = (rand() % (INT_MAX - 1) + 1); // losowanie wagi
         if (type == Generate_graph::graph_type::undirected){
             matrix[v1][edge_counter] = w;
@@ -169,8 +169,8 @@ bool Generate_graph::is_cycle(int** graph, int vertices, int edges, int v1, int 
 int** Generate_graph::create_graph_incidence_matrix(int vertices, int edges, graph_type type){
     int** graph = Generate_graph::complete_incidence_matrix(vertices, type);
     int edges_full = vertices * (vertices - 1) / 2;
-    if (edges == edges_full)
-        return graph;
+    // if (edges == edges_full)
+        // return graph;
     MST mst;
     int** mstm = mst.Prim_Matrix(graph, edges_full, vertices, type, MST::print::no);
     int** matrix = Generate_graph::densify_incidence_matrix(vertices, mstm, edges, type);

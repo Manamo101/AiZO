@@ -31,11 +31,12 @@ int main(){
             new int[5]{0,3,1,0,5},
             new int[5]{0,0,0,3,5}
         };
-    // int vertices = 400;
-    // int density = 99;
-    // int edges_full = vertices * (vertices - 1) / 2;
-    // int edges_density = edges_full * density/(float)100;
-    // Generate_graph::graph_type type = Generate_graph::graph_type::directed;
+    /*
+    int vertices = 500;
+    int density = 50;
+    int edges_full = vertices * (vertices - 1) / 2;
+    int edges_density = edges_full * density/(float)100;
+    Generate_graph::graph_type type = Generate_graph::graph_type::directed;
     // int **matrix = incidence_matrix2;
 
     // string filename = "graf_nieskierowany.txt";
@@ -48,11 +49,11 @@ int main(){
     // if (file_graph) {
     //     int v_file = FIleManger::get_vertices(filename);
     //     int e_file = FIleManger::get_edges(filename);
-        // Printer::print_matrix_graph(file_graph, v_file, e_file);
+    //     Printer::print_matrix_graph(file_graph, v_file, e_file);
     // }
 
-    // int ** matrix = Generate_graph::create_graph_incidence_matrix(vertices, edges_density, type);
     // int ** matrix = Generate_graph::complete_incidence_matrix(vertices, type);
+    // int ** matrix = Generate_graph::create_graph_incidence_matrix(vertices, edges_density, type);
     // Graph_list **list = Generate_graph::parse_to_adjacency_list(vertices, edges_density, matrix, type);
     // cout << "juz" << endl;
     // Printer::print_matrix_graph(matrix, vertices, edges_density);
@@ -61,39 +62,30 @@ int main(){
     // MST mst;
     // int** mstm = mst.Prim_Matrix(matrix, edges_density, vertices, type, MST::yes);
     // Printer::print_matrix_graph(mstm, vertices, vertices - 1);
-    // Graph_list** mstl = mst.Prim_List(list, edges_full, vertices, MST::yes);
+    // Graph_list** mstl = mst.Prim_List(list, edges_density, vertices, MST::yes);
     // Printer::print_list_graph(mstl, vertices);
     
-    // ShortPath sp;
-    // sp.Dijkstra_Matrix(matrix, edges_density, vertices, 1, 3);
-    // sp.Dijkstra_List(list, e_file, v_file, 1, 4);
+    ShortPath sp;
+    // sp.Dijkstra_Matrix(matrix, edges_density, vertices, 0, vertices - 1);
+    // sp.Dijkstr/a_List(list, edges_density, vertices, 0, vertices - 1);
     // sp.BF_Matrix(matrix, edges_density, vertices, 0, vertices - 1);
     // sp.BF_List(list, edges_density, vertices, 0, vertices - 1);
+    */
 
-    // // usuwanie
-    // for(int i = 0; i < vertices; ++i) {
-    //     Graph_list *p = list[i];
-    //     while(p) {
-    //         Graph_list *r = p;
-    //         p = p->next;
-    //         delete r;
-    //     }
-    // }
-    // delete [] list;
-
+// /**
     char tryb;
     char key;
     string filename = "graf_nieskierowany.txt";
-    int e_file, v_file;
-    int density, v;
-    int** file_graph;
-    int ** matrix;
-    int edges_density;
+    int density, vertices;
+    int edges;
     int edges_full;
-    Graph_list **list;
-    Graph_list **file_list;
+    int start, stop;
+    int ** matrix = NULL;
+    int ** mst_matrix = NULL;
+    Graph_list **list = NULL;
+    Graph_list **mst_list = NULL;
 
-    cout << "Podaj rodzaj algorytmu ktory chcesz zmierzyc (m - minimalne drzewo rozpinajace, s - najkrotsza droga): ";
+    cout << "Podaj rodzaj algorytmu ktory chcesz zmierzyc: m - minimalne drzewo rozpinajace, s - najkrotsza droga\n";
     while (true) {
         cin >> tryb;
         if (tryb == 'm' || tryb == 's')
@@ -112,36 +104,47 @@ int main(){
             cout << "5. wyjdz\n";
             cout << "podaj odpowiednia liczbe: ";
             cin >> key;
+            cout << endl;
 
             switch (key)
             {
             case '1':
                 cout << "podaj nazwe pliku: ";
                 cin >> filename;
-                e_file = FIleManger::get_edges(filename);
-                if (e_file == NULL)
+                edges = FIleManger::get_edges(filename);
+                if (edges == NULL)
                     break;
-                v_file = FIleManger::get_vertices(filename);
+                vertices = FIleManger::get_vertices(filename);
                 matrix = FIleManger::get_graph(filename, FIleManger::undirected);
-                list = Generate_graph::parse_to_adjacency_list(v_file, e_file, matrix, type);
+                list = Generate_graph::parse_to_adjacency_list(vertices, edges, matrix, type);
                 cout << "\nWczytano graf. Wciscij jakikolwiek przycisk\n";
                 while (!getch());
                 break;
             case '2':
                 cout << "podaj liczbe wierzcholkow: ";
-                cin >> v;
+                cin >> vertices;
                 cout << "podaj gestosc krawedzi w %: ";
                 cin >> density;
-                edges_full = v * (v - 1) / 2;
-                edges_density = edges_full * density/(float)100;
-                matrix = Generate_graph::create_graph_incidence_matrix(v, edges_density, type);
-                list = Generate_graph::parse_to_adjacency_list(v_file, e_file, matrix, type);
+                cout << endl;
+                edges_full = vertices * (vertices - 1) / 2;
+                edges = edges_full * density/(float)100;
+                matrix = Generate_graph::create_graph_incidence_matrix(vertices, edges, type);
+                list = Generate_graph::parse_to_adjacency_list(vertices, edges, matrix, type);
                 cout << "\nUtworzono graf. Wciscij jakikolwiek przycisk\n";
                 while (!getch());
                 break;
             case '3':
-                Printer::print_matrix_graph(matrix, v, edges_density);
-                Printer::print_list_graph(list, v);
+                Printer::print_matrix_graph(matrix, vertices, edges);
+                Printer::print_list_graph(list, vertices);
+                cout << "\nWciscij jakikolwiek przycisk\n";
+                while (!getch());
+                break;
+            case '4':
+                MST mst;
+                mst_matrix = mst.Prim_Matrix(matrix, edges, vertices, Generate_graph::graph_type::undirected, MST::print::yes);
+                mst_list = mst.Prim_List(list, edges, vertices, MST::print::yes);
+                Printer::print_matrix_graph(mst_matrix, vertices, vertices - 1);
+                Printer::print_list_graph(mst_list, vertices);
                 cout << "\nWciscij jakikolwiek przycisk\n";
                 while (!getch());
                 break;
@@ -151,22 +154,108 @@ int main(){
         }
         while (key != '5');
     }
+    if (tryb == 's') {
+        Generate_graph::graph_type type = Generate_graph::graph_type::directed;
+
+        do {
+            cout << "\n1. wczytaj dane z pliku\n";
+            cout << "2. wygeneruj graf losowo\n";
+            cout << "3. wyswietl graf\n";
+            cout << "4. Algorytm Dijkstry\n";
+            cout << "5. Algorytm Bellmana-Forda\n";
+            cout << "6. wyjdz\n";
+            cout << "podaj odpowiednia liczbe: ";
+            cin >> key;
+            cout << endl;
+
+            switch (key){
+            case '1':
+                cout << "podaj nazwe pliku: ";
+                cin >> filename;
+                edges = FIleManger::get_edges(filename);
+                if (edges == NULL)
+                    break;
+                vertices = FIleManger::get_vertices(filename);
+                matrix = FIleManger::get_graph(filename, FIleManger::directed);
+                list = Generate_graph::parse_to_adjacency_list(vertices, edges, matrix, type);
+                cout << "\nWczytano graf. Wciscij jakikolwiek przycisk\n";
+                while (!getch());
+                break;
+            case '2':
+                cout << "podaj liczbe wierzcholkow: ";
+                cin >> vertices;
+                cout << "podaj gestosc krawedzi w %: ";
+                cin >> density;
+                cout << endl;
+                edges_full = vertices * (vertices - 1) / 2;
+                edges = edges_full * density/(float)100;
+                matrix = Generate_graph::create_graph_incidence_matrix(vertices, edges, type);
+                list = Generate_graph::parse_to_adjacency_list(vertices, edges, matrix, type);
+                cout << "\nUtworzono graf. Wciscij jakikolwiek przycisk\n";
+                while (!getch());
+                break;
+            case '3':
+                Printer::print_matrix_graph(matrix, vertices, edges);
+                Printer::print_list_graph(list, vertices);
+                cout << "\nWciscij jakikolwiek przycisk\n";
+                while (!getch());
+                break;
+            case '4':
+                cout << "podaj wierzcholek poczatkowy: ";
+                cin >> start;
+                cout << "podaj wierzcholek koncowy: ";
+                cin >> stop;
+                cout << endl;
+                ShortPath sp;
+                sp.Dijkstra_Matrix(matrix, edges, vertices, start, stop);
+                sp.Dijkstra_List(list, edges, vertices, start, stop);
+                cout << "\nWciscij jakikolwiek przycisk\n";
+                while (!getch());
+                break;
+            case '5':
+                cout << "podaj wierzcholek poczatkowy: ";
+                cin >> start;
+                cout << "podaj wierzcholek koncowy: ";
+                cin >> stop;
+                cout << endl;
+                ShortPath sp2;
+                sp2.BF_Matrix(matrix, edges, vertices, start, stop);
+                sp2.BF_List(list, edges, vertices, start, stop);
+                cout << "\nWciscij jakikolwiek przycisk\n";
+                while (!getch());
+                break;
+            default:
+                break;
+            }  
+        }
+        while (key != '6');
+    }
+// */
 
 
+    // usuwanie
+    for(int i = 0; i < vertices; ++i) {
+        Graph_list *p = list[i];
+        while(p) {
+            Graph_list *r = p;
+            p = p->next;
+            delete r;
+        }
+        // p = mst_list[i];
+        // while(p) {
+        //     Graph_list *r = p;
+        //     p = p->next;
+        //     delete r;
+        // }
+    }
+    delete [] list;
+    // delete [] mst_list;
 
-
-    // for (int i = 0; i < vertices; ++i){
-    //     delete [] matrix[i];
-    // }
-    // delete [] matrix;
+    for (int i = 0; i < vertices; ++i){
+        delete [] matrix[i];
+        // delete [] mst_matrix[i];
+    }
+    delete [] matrix;
+    // delete [] mst_matrix;
     return 0;
-}
-
-void print_menu_mst() {
-    cout << "\n1. wczytaj dane z pliku\n";
-    cout << "2. wygeneruj graf losowo\n";
-    cout << "3. wyswietl graf\n";
-    cout << "4. Algorytm Prima";
-    cout << "5. wyjdz";
-    cout << "podaj odpowiednia liczbe: ";
 }

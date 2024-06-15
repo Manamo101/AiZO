@@ -68,17 +68,19 @@ void ShortPath::Dijkstra_Matrix(int ** graph, int edges, int vertices, int start
     float time = timer.stop();
 
     cout << "Dijkstra matrix time = " << time << "ms" << endl;
-    int pre = dijkstras[stop].p;
-    cout << stop;
-    while (pre != -1) {
+    if (dijkstras[stop].d != INT_MAX){
+        int pre = dijkstras[stop].p;
+        cout << stop;
+        while (pre != -1) {
         cout << " <- " << pre;
         pre = dijkstras[pre].p;
-    }
+        }    
     cout << endl << "total cost = " << dijkstras[stop].d << endl;
-    // cout << "from 0 to whatever you want\n";
-    // for (int i = 0; i < vertices; ++i){
-    //     cout << "to " << i << " from " << dijkstras[i].p << " length " << dijkstras[i].d << endl;
-    // }
+    }
+    else {
+        cout << "Droga nie istnieje!\n";
+    }
+
 
     delete [] dijkstras;
     queue.clear();
@@ -125,17 +127,19 @@ void ShortPath::Dijkstra_List(Graph_list ** graph, int edges, int vertices, int 
     float time = timer.stop();
 
     cout << "Dijkstra list time = " << time << "ms" << endl;
-    int pre = dijkstras[stop].p;
-    cout << stop;
-    while (pre != -1) {
-        cout << " <- " << pre;
-        pre = dijkstras[pre].p;
+    if (dijkstras[stop].d != INT_MAX){
+        int pre = dijkstras[stop].p;
+        cout << stop;
+        while (pre != -1) {
+            cout << " <- " << pre;
+            pre = dijkstras[pre].p;
+        }
+        cout << endl << "total cost = " << dijkstras[stop].d << endl;
     }
-    cout << endl << "total cost = " << dijkstras[stop].d << endl;
-    // cout << "from 0 to whatever you want\n";
-    // for (int i = 0; i < vertices; ++i){
-    //     cout << "to " << i << " from " << dijkstras[i].p << " length " << dijkstras[i].d << endl;
-    // }
+    else {
+        cout << "Droga nie istnieje!\n";
+    }
+    
 
     delete [] dijkstras;
     queue.clear();
@@ -187,20 +191,20 @@ void ShortPath::BF_Matrix(int ** graph, int edges, int vertices, int start, int 
         }
     }
     float time = timer.stop();
-    cout << time << endl;
-    // cout << "BF matrix time = " << time << " ms" << endl;
-
-    // cout << "from 0 to whatever you want\n";
-    // for (int i = 0; i < vertices; ++i){
-    //     cout << "to " << i << " from " << p[i] << " length " << d[i] << endl;
-    // }
-    // int pre = p[stop];
-    // cout << stop;
-    // while (pre != -1) {
-    //     cout << " <- " << pre;
-    //     pre = p[pre];
-    // }
-    // cout << endl << "total cost = " << d[stop] << endl;
+    // cout << time << endl;
+    cout << "BF matrix time = " << time << " ms" << endl;
+    if (d[stop] != INT_MAX){
+    int pre = p[stop];
+    cout << stop;
+    while (pre != -1) {
+        cout << " <- " << pre;
+        pre = p[pre];
+    }
+    cout << endl << "total cost = " << d[stop] << endl;
+    }
+    else {
+        cout << "Droga nie istnieje!\n";
+    }
 
     delete [] d;
     delete [] p;
@@ -252,20 +256,21 @@ void ShortPath::BF_List(Graph_list** graph, int edges, int vertices, int start, 
     }
     float time = timer.stop();
 
-    cout << time << endl;
-    // cout << "BF list time = " << time << " ms" << endl;
+    // cout << time << endl;
+    cout << "BF list time = " << time << " ms" << endl;
 
-    // cout << "from 0 to whatever you want\n";
-    // for (int i = 0; i < vertices; ++i){
-    //     cout << "to " << i << " from " << p[i] << " length " << d[i] << endl;
-    // }
-    // int pre = p[stop];
-    // cout << stop;
-    // while (pre != -1) {
-    //     cout << " <- " << pre;
-    //     pre = p[pre];
-    // }
-    // cout << endl << "total cost = " << d[stop] << endl;
+    if (d[stop] != INT_MAX){
+    int pre = p[stop];
+    cout << stop;
+    while (pre != -1) {
+        cout << " <- " << pre;
+        pre = p[pre];
+    }
+    cout << endl << "total cost = " << d[stop] << endl;
+    }
+    else {
+        cout << "Droga nie istnieje!\n";
+    }
 
     delete [] d;
     delete [] p;

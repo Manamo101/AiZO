@@ -39,11 +39,11 @@ Graph_list** Generate_graph::parse_to_adjacency_list(int vertices, int edges, in
                 l->next = list[index_a];
                 list[index_a] = l;
 
-                l = new Graph_list();
-                l->w = b;
-                l->v = index_a;
-                l->next = list[index_b];
-                list[index_b] = l;
+                // l = new Graph_list();
+                // l->w = b;
+                // l->v = index_a;
+                // l->next = list[index_b];
+                // list[index_b] = l;
             }
         }
         else {
@@ -131,10 +131,11 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edge
         }
     }
     // return matrix;
+
     srand(time(NULL));
-    int edge_counter = vertices - 1;
+    // int edge_counter = vertices - 1;
     int v1, v2, w;
-    while (edge_counter != edges) {
+    for (int i = vertices - 1; i < edges; ++i) {
         // do {
             v1 = rand() % vertices;
             do
@@ -144,15 +145,16 @@ int** Generate_graph::densify_incidence_matrix(int vertices, int** mst, int edge
         // while (is_cycle(matrix, vertices, edges, v1, v2));
         w = (rand() % (INT_MAX - 1) + 1); // losowanie wagi
         if (type == Generate_graph::graph_type::undirected){
-            matrix[v1][edge_counter] = w;
-            matrix[v2][edge_counter] = w;
+            matrix[v1][i] = w;
+            matrix[v2][i] = w;
         }
         else if (type == Generate_graph::graph_type::directed) {
             w = rand() % 2 ? w : -w; // losowanie kierunku
-            matrix[v1][edge_counter] = w;
-            matrix[v2][edge_counter] = -w;
+            matrix[v1][i] = w;
+            matrix[v2][i] = -w;
+
         }
-        ++edge_counter;
+        // ++edge_counter;
     }
 
     return matrix;
@@ -169,8 +171,6 @@ bool Generate_graph::is_cycle(int** graph, int vertices, int edges, int v1, int 
 int** Generate_graph::create_graph_incidence_matrix(int vertices, int edges, graph_type type){
     int** graph = Generate_graph::complete_incidence_matrix(vertices, type);
     int edges_full = vertices * (vertices - 1) / 2;
-    // if (edges == edges_full)
-        // return graph;
     MST mst;
     int** mstm = mst.Prim_Matrix(graph, edges_full, vertices, type, MST::print::no);
     int** matrix = Generate_graph::densify_incidence_matrix(vertices, mstm, edges, type);

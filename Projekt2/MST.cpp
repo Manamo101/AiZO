@@ -15,117 +15,12 @@ struct Prim{
     bool used = false;
 };
 
-class Compare{
-    public:
-        bool operator() (Prim a, Prim b){
-            return a.key > b.key;
-        }
-};
 
 bool compare_vector(Prim* a, Prim* b){
             return (*a).key > (*b).key;
         }
 
 int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::graph_type type, print prt){
-    /*
-    priority_queue<Prim, vector<Prim>, Compare> queue;
-    priority_queue<Prim, vector<Prim>, Compare> tmp;
-    priority_queue<Prim, vector<Prim>, Compare> tmp2;
-
-
-    int ** mst = new int*[vertices];
-    for (int i = 0; i < vertices; ++i){
-        mst[i] = new int[vertices];
-        for (int j = 0; j < vertices - 1; ++j){
-            mst[i][j] = 0;
-        }
-    }
-
-    int* key = new int[vertices];
-    int* p = new int[vertices];
-
-    Timer timer;
-    for (int i = 0; i < vertices; ++i) {
-        Prim prim;
-        prim.key = INT_MAX;
-        prim.v = i;
-        key[i] = INT_MAX;
-        p[i] = NULL;
-        if (i == 0) {
-            key[i] = 0;
-            prim.key = 0;
-        }
-        queue.push(prim);
-    }
-    
-    bool contains;
-    while (!queue.empty()) {
-        Prim vertex = queue.top();
-        queue.pop();
-        int u = vertex.v;
-
-        for (int e = 0; e < edges; ++e) {
-            if (graph[u][e] != 0) {
-                for (int v = 0; v < vertices; ++v) {
-                    if (graph[v][e] && v != u) {
-
-                        contains = false;
-                        tmp = queue;
-                        while (!tmp.empty()) {
-                        if (tmp.top().v == v && tmp.top().key == key[v]){
-                            // if (tmp.top().v == v){
-                                contains = true;
-                                break;
-                            }
-                            tmp.pop();
-                        }
-
-                        if (contains && graph[v][e] < key[v]) {
-                            priority_queue<Prim, vector<Prim>, Compare> tmp2;
-                            while (!(queue.top().v == v && queue.top().key == key[v])) {
-                                tmp2.push(queue.top());
-                                queue.pop();
-                            }
-                            key[v] = graph[v][e];
-                            p[v] = u;
-                            Prim prim = queue.top();
-                            queue.pop();
-                            prim.key = graph[v][e];
-                            queue.push(prim);
-                            while (!tmp2.empty()) {
-                                queue.push(tmp2.top());
-                                tmp2.pop();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    float time = timer.stop();
-    cout << "mst Prim matrix time = " << time << endl;
-
-    int edge = 0;
-    int total = 0;
-    for (int i = 1; i < vertices; ++i){
-        if (type == Generate_graph::graph_type::directed) {
-            mst[i][edge] = key[i];// > 0 ? key[i] : -key[i];
-            mst[p[i]][edge] = -key[i];// > 0 ? -key[i] : key[i];
-            // mst[p[i]][edge] = key[i];
-        }
-        else if (type == Generate_graph::graph_type::undirected) {
-            total += key[i];
-            mst[i][edge] = key[i];
-            mst[p[i]][edge] = key[i];
-        }
-        ++edge;
-    }
-    if (type == Generate_graph::graph_type::undirected)
-        cout << "total = " << total << endl;
-    return mst;
-    */
-
-
     int ** mst = new int*[vertices];
     for (int i = 0; i < vertices; ++i){
         mst[i] = new int[vertices];
@@ -208,7 +103,7 @@ int** MST::Prim_Matrix(int ** graph, int edges, int vertices, Generate_graph::gr
     delete [] key;
     delete [] p;
 
-    // queue.clear();
+    queue.clear();
     // delete &queue;
 
     return mst;
@@ -282,18 +177,11 @@ Graph_list** MST::Prim_List(Graph_list** graph, int edges, int vertices, print p
         std::cout << "total = " << total << endl;
     }
 
-    // delete [] prims;
-    // queue.clear();
+    delete [] prims;
+    delete [] key;
+    delete [] p;
+    queue.clear();
     // delete &queue;
 
     return mst;
-}
-int** MST::Kruskal_Matrix(int ** graph, int e, int v, Generate_graph::graph_type type, print p) {
-    
-
-
-
-
-    
-    return NULL;
 }
